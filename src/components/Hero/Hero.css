@@ -4,37 +4,33 @@
     align-items:center;
     gap:50px;
 
-    padding:50px 130px;
+    padding:60px 130px 30px;
 
-    min-height:85vh;
+    min-height:75vh;
 }
 
 .hero-content{
     flex:1;
+    max-width:600px;
 }
 
 .hero-content h1{
-    font-size:3.5rem;
+    font-size:2.4rem;
     color:#1B4332;
-
+    max-width:500px;
     margin-bottom:20px;
 }
 
 .hero-content p{
-    font-size:1.2rem;
-
+    font-size:1rem;
     color:#555;
-
-    max-width:550px;
-
+    max-width:520px;
     line-height:1.8;
-
     margin-bottom:35px;
 }
 
 .hero-buttons{
     display:flex;
-
     gap:20px;
 }
 
@@ -100,7 +96,7 @@
 .hero-image img{
 
     width:100%;
-    max-width:630px;
+    max-width:600px;
    height:auto;
     
 }
