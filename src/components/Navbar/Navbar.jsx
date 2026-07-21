@@ -1,4 +1,5 @@
 import "./Navbar.css";
+import { Link } from "react-router-dom";
 import { Backpack } from "lucide-react";
 
 function Navbar() {
@@ -11,15 +12,26 @@ function Navbar() {
 </div>
 
       <ul className="nav-links">
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Lost Items</a></li>
-        <li><a href="#">Found Items</a></li>
-        <li><a href="#">About</a></li>
-      </ul>
+  <li>
+    <Link to="/">Home</Link>
+  </li>
 
-      <button className="report-btn">
-        Report Lost
-      </button>
+  <li>
+    <Link to="/lost-items">Lost Items</Link>
+  </li>
+
+  <li>
+    <Link to="/found-items">Found Items</Link>
+  </li>
+
+  <li>
+    <Link to="/about">About</Link>
+  </li>
+</ul>
+
+      <Link to="/report-lost" className="report-btn">
+  Report Lost
+</Link>
     </nav>
   );
 }

@@ -1,0 +1,128 @@
+import "./LostItems.css";
+
+import Navbar from "../../components/Navbar/Navbar";
+import Footer from "../../components/Footer/Footer";
+
+import { Search, MapPin, CalendarDays, ArrowRight } from "lucide-react";
+
+import lostItems from "../../data/lostItems";
+
+import { useState } from "react";
+import { Link } from "react-router-dom";
+
+function LostItems() {
+
+  const [search, setSearch] = useState("");
+  const [category, setCategory] = useState("All");
+
+
+  const filteredItems = lostItems.filter((item) => {
+
+    const matchesSearch =
+      item.name.toLowerCase().includes(search.toLowerCase());
+
+    const matchesCategory =
+      category === "All" || item.category === category;
+
+    return matchesSearch && matchesCategory;
+
+  });
+
+  return (
+
+    <>
+      <Navbar />
+
+      <section className="lost-items-page">
+
+        <div className="page-header">
+
+          <h1>Lost Items</h1>
+
+          <p>
+        
+                Browse reported lost items across the campus.
+                If you have found any of these items, please submit them to the Campus Admin Office.
+            
+          </p>
+
+        </div>
+
+        <div className="search-filter">
+
+          <div className="search-box">
+
+            <Search size={18} />
+
+            <input
+              type="text"
+              placeholder="Search items..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+
+          </div>
+
+          <select
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+          >
+            <option>All</option>
+            <option>Bag</option>
+            <option>Electronics</option>
+            <option>Keys</option>
+          </select>
+
+        </div>
+
+        <div className="items-grid">
+
+          {filteredItems.map((item) => (
+
+            <div className="item-card" key={item.id}>
+
+              <img src={item.image} alt={item.name} />
+
+              <div className="item-content">
+
+                <h3>{item.name}</h3>
+
+                <p>
+                  <MapPin size={16} />
+                  {item.location}
+                </p>
+
+                <p>
+                  <CalendarDays size={16} />
+                  {item.date}
+                </p>
+
+                <span className="status">
+                  {item.status}
+                </span>
+
+                <Link
+                  to={`/lost-items/${item.id}`}
+                  className="details-btn"
+                >
+                  View Details
+                  <ArrowRight size={18} />
+                </Link>
+
+              </div>
+
+            </div>
+
+          ))}
+
+        </div>
+
+      </section>
+
+      <Footer />
+    </>
+
+  );
+}
+
+export default LostItems;

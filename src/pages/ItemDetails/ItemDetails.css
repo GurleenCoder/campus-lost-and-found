@@ -1,0 +1,155 @@
+.item-details-page{
+    background:#f8fbf8;
+    min-height:100vh;
+    padding:120px 80px 80px;
+}
+
+.details-container{
+    max-width:1200px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:60px;
+    align-items:center;
+}
+
+.details-image img{
+    width:100%;
+    border-radius:20px;
+    box-shadow:0 12px 30px rgba(0,0,0,.12);
+}
+
+.details-status{
+    display:inline-block;
+    padding:8px 18px;
+    background:#E8F5E9;
+    color:#2E7D32;
+    border-radius:30px;
+    font-weight:600;
+    margin-bottom:18px;
+}
+
+.details-content h1{
+    font-size:2.7rem;
+    color:#1B4332;
+    margin-bottom:30px;
+}
+
+.details-info{
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+    margin-bottom:30px;
+}
+
+.details-info p{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    color:#555;
+    font-size:1rem;
+}
+
+.details-info svg{
+    color:#2E7D32;
+}
+
+.details-content h3{
+    margin-bottom:12px;
+    color:#1B4332;
+}
+
+.description{
+    line-height:1.8;
+    color:#666;
+    margin-bottom:35px;
+}
+
+.claim-box{
+    display:flex;
+    gap:18px;
+    align-items:flex-start;
+    background:white;
+    padding:22px;
+    border-radius:16px;
+    box-shadow:0 8px 20px rgba(0,0,0,.06);
+    margin-bottom:35px;
+}
+
+.claim-box svg{
+    color:#2E7D32;
+    flex-shrink:0;
+}
+
+.claim-box h4{
+    margin-bottom:8px;
+    color:#1B4332;
+}
+
+.claim-box p{
+    line-height:1.7;
+    color:#666;
+}
+
+.back-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    background:#2E7D32;
+    color:white;
+    padding:14px 26px;
+    border-radius:10px;
+    text-decoration:none;
+    font-weight:600;
+    transition:.3s;
+}
+
+.back-btn:hover{
+    background:#256428;
+    transform:translateY(-3px);
+}
+
+.item-not-found{
+    min-height:70vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    gap:20px;
+}
+
+.item-not-found a{
+    text-decoration:none;
+    background:#2E7D32;
+    color:white;
+    padding:12px 24px;
+    border-radius:10px;
+}
+
+@media(max-width:900px){
+
+    .item-details-page{
+        padding:110px 40px 60px;
+    }
+
+    .details-container{
+        grid-template-columns:1fr;
+    }
+
+    .details-content h1{
+        font-size:2.2rem;
+    }
+
+}
+
+@media(max-width:600px){
+
+    .item-details-page{
+        padding:100px 20px 50px;
+    }
+
+    .details-content h1{
+        font-size:1.9rem;
+    }
+
+}

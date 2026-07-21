@@ -1,4 +1,5 @@
 import { ShieldCheck } from "lucide-react";
+import { Link } from "react-router-dom";
 import "./Hero.css";
 import heroImage from "../../assets/images/hero-image.png";
 
@@ -26,13 +27,13 @@ function Hero() {
         </p>
 
         <div className="hero-buttons">
-          <button className="primary-btn">
-            Report a Lost Item
-          </button>
+          <Link to="/report-lost" className="primary-btn">
+           Report a Lost Item
+          </Link>
 
-          <button className="secondary-btn">
-            Browse Found Items
-          </button>
+          <Link to="/found-items" className="secondary-btn">
+           Browse Found Items
+          </Link>
         </div>
 
       </div>
