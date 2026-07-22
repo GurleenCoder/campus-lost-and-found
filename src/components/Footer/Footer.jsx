@@ -30,6 +30,7 @@ function Footer() {
           <Link to="/report-lost">Report Lost</Link>
           <Link to="/found-items">Found Items</Link>
           <Link to="/lost-items">Lost Items</Link>
+          <Link to="/admin-login">Admin Login</Link>
 
         </div>
 
