@@ -1,0 +1,80 @@
+.claimed-page{
+    min-height:100vh;
+    background:#f8fbf8;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    padding:120px 20px 80px;
+}
+
+.claimed-card{
+
+    max-width:650px;
+    width:100%;
+
+    background:white;
+
+    padding:50px 40px;
+
+    border-radius:18px;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+
+    text-align:center;
+}
+
+.claimed-icon{
+
+    color:#2E7D32;
+
+    margin-bottom:25px;
+}
+
+.claimed-card h1{
+
+    color:#1B4332;
+
+    margin-bottom:18px;
+
+    font-size:2rem;
+}
+
+.claimed-card p{
+
+    color:#555;
+
+    font-size:1.1rem;
+
+    margin-bottom:15px;
+
+    line-height:1.7;
+}
+
+.claimed-card span{
+
+    display:block;
+
+    color:#777;
+
+    line-height:1.8;
+}
+
+/* Responsive */
+
+@media(max-width:768px){
+
+    .claimed-card{
+
+        padding:35px 25px;
+
+    }
+
+    .claimed-card h1{
+
+        font-size:1.7rem;
+
+    }
+
+}

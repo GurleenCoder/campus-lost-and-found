@@ -1,0 +1,305 @@
+.about-page{
+    background:#F8FAF8;
+}
+
+/* ===========================
+   Hero
+=========================== */
+
+.about-hero{
+
+    text-align:center;
+
+    padding:80px 20px 60px;
+
+    background:#D8F3DC
+}
+
+.about-hero h1{
+
+    font-size:2.8rem;
+
+    color:#1B4332;
+
+    margin-bottom:20px;
+
+}
+
+.about-hero p{
+
+    max-width:720px;
+
+    margin:auto;
+
+    color:#555;
+
+    font-size:1.1rem;
+
+    line-height:1.8;
+
+}
+
+/* ===========================
+   Sections
+=========================== */
+
+.about-section{
+
+    max-width:1200px;
+
+    margin:70px auto;
+
+    padding:0 40px;
+
+}
+
+.about-section h2{
+
+    color:#1B4332;
+
+    font-size:2rem;
+
+    margin-bottom:22px;
+
+    text-align:center;
+
+}
+
+.about-section>p{
+
+    max-width:850px;
+
+    margin:auto;
+
+    text-align:center;
+
+    color:#555;
+
+    line-height:1.9;
+
+    font-size:1.05rem;
+
+}
+
+/* ===========================
+   Workflow
+=========================== */
+
+.workflow-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:28px;
+
+    margin-top:45px;
+
+}
+
+.workflow-card{
+
+    background:white;
+
+    border-radius:18px;
+
+    padding:35px;
+
+    text-align:center;
+
+    box-shadow:0 8px 25px rgba(0,0,0,.06);
+
+    transition:.3s;
+
+}
+
+.workflow-card svg{
+
+    color:#2E7D32;
+
+    margin-bottom:18px;
+
+}
+
+.workflow-card h3{
+
+    color:#1B4332;
+
+    margin-bottom:15px;
+
+}
+
+.workflow-card p{
+
+    color:#666;
+
+    line-height:1.7;
+
+}
+
+.workflow-card:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:0 18px 35px rgba(0,0,0,.12);
+
+}
+
+/* ===========================
+   Features
+=========================== */
+
+.features-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:22px;
+
+    margin-top:45px;
+
+}
+
+.feature-box{
+
+    background:white;
+
+    padding:28px;
+
+    border-radius:15px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    gap:15px;
+
+    font-weight:600;
+
+    color:#1B4332;
+
+    box-shadow:0 6px 20px rgba(0,0,0,.06);
+
+    transition:.3s;
+
+}
+
+.feature-box svg{
+
+    color:#2E7D32;
+
+}
+
+.feature-box:hover{
+
+    transform:translateY(-6px);
+
+    background:#E8F5E9;
+
+}
+
+/* ===========================
+   CTA
+=========================== */
+
+.about-cta{
+    margin-top:80px;
+    padding:80px 20px;
+    background:#D8F3DC;
+    text-align:center;
+}
+
+.about-cta h2{
+
+   color:#1B4332;
+
+    max-width:700px;
+
+    margin:auto;
+
+    margin-bottom:35px;
+
+    line-height:1.5;
+
+}
+
+.about-cta button{
+
+    background:#FFC107;
+
+    color:#1B4332;
+
+    border:none;
+
+    padding:15px 32px;
+
+    border-radius:10px;
+
+    font-size:1rem;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.about-cta button:hover{
+
+    transform:translateY(-3px);
+
+    background:white;
+
+}
+
+/* ===========================
+   Responsive
+=========================== */
+
+@media(max-width:900px){
+
+.workflow-grid{
+
+    grid-template-columns:1fr;
+
+}
+
+.features-grid{
+
+    grid-template-columns:repeat(2,1fr);
+
+}
+
+.about-section{
+
+    padding:0 25px;
+
+}
+
+}
+
+@media(max-width:600px){
+
+.about-hero h1{
+
+    font-size:2rem;
+
+}
+
+.features-grid{
+
+    grid-template-columns:1fr;
+
+}
+
+.about-section{
+
+    margin:50px auto;
+
+}
+
+}

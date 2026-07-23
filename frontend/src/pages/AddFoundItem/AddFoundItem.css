@@ -1,0 +1,133 @@
+.add-item-page{
+    min-height:100vh;
+    background:#f8fbf8;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    padding:50px 20px;
+}
+
+.add-item-card{
+    width:100%;
+    max-width:700px;
+
+    background:white;
+
+    padding:40px;
+
+    border-radius:18px;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+}
+
+.back-link{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+
+    text-decoration:none;
+
+    color:#2E7D32;
+
+    font-weight:600;
+
+    margin-bottom:25px;
+}
+
+.back-link:hover{
+    text-decoration:underline;
+}
+
+.add-item-card h1{
+    color:#1B4332;
+    margin-bottom:10px;
+}
+
+.add-item-card p{
+    color:#666;
+    margin-bottom:30px;
+    line-height:1.6;
+}
+
+.add-item-card form{
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+}
+
+.add-item-card input,
+.add-item-card select,
+.add-item-card textarea{
+
+    width:100%;
+
+    padding:14px 16px;
+
+    border:1px solid #d9d9d9;
+
+    border-radius:10px;
+
+    font-size:1rem;
+
+    outline:none;
+
+    transition:.3s;
+}
+
+.add-item-card textarea{
+    resize:vertical;
+}
+
+.add-item-card input:focus,
+.add-item-card select:focus,
+.add-item-card textarea:focus{
+
+    border-color:#2E7D32;
+
+}
+
+.add-item-card input[type="file"]{
+
+    padding:10px;
+
+    cursor:pointer;
+}
+
+.add-item-card button{
+
+    background:#2E7D32;
+
+    color:white;
+
+    border:none;
+
+    padding:15px;
+
+    border-radius:10px;
+
+    font-size:1rem;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+.add-item-card button:hover{
+
+    background:#256428;
+
+}
+
+@media(max-width:768px){
+
+    .add-item-card{
+
+        padding:30px 20px;
+
+    }
+
+}
