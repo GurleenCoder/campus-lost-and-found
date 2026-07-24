@@ -1,3 +1,4 @@
+import { useState } from "react";
 import "./ReportLost.css";
 
 import {
@@ -10,6 +11,58 @@ import {
 } from "lucide-react";
 
 function ReportLost() {
+  const [formData, setFormData] = useState({
+  itemName: "",
+  category: "",
+  dateLost: "",
+  locationLost: "",
+  description: "",
+  image: null,
+});
+
+const handleChange = (e) => {
+  const { name, value } = e.target;
+
+  setFormData({
+    ...formData,
+    [name]: value,
+  });
+};
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  try {
+    const response = await fetch("http://localhost:5000/api/lost-items", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
+
+    const data = await response.json();
+
+    if (data.success) {
+      alert("Lost item reported successfully!");
+
+      setFormData({
+        itemName: "",
+        category: "",
+        dateLost: "",
+        locationLost: "",
+        description: "",
+        image: null,
+      });
+    } else {
+      alert(data.message);
+    }
+  } catch (error) {
+    console.error(error);
+    alert("Something went wrong.");
+  }
+};
+
   return (
     <section className="report-lost">
 
@@ -24,7 +77,7 @@ function ReportLost() {
           </p>
         </div>
 
-        <form className="report-form">
+        <form className="report-form" onSubmit={handleSubmit}>
 
           <div className="input-group">
             <label>
@@ -34,6 +87,9 @@ function ReportLost() {
 
             <input
               type="text"
+              name="itemName"
+              value={formData.itemName}
+              onChange={handleChange}
               placeholder="Enter item name"
             />
           </div>
@@ -44,8 +100,12 @@ function ReportLost() {
               Category
             </label>
 
-            <select>
-              <option>Select Category</option>
+            <select
+            name="category"
+            value={formData.category}
+            onChange={handleChange}
+>
+              <option value="">Select Category</option>
               <option>Bag</option>
               <option>Electronics</option>
               <option>ID Card</option>
@@ -63,7 +123,12 @@ function ReportLost() {
               Date Lost
             </label>
 
-            <input type="date" />
+           <input
+          type="date"
+          name="dateLost"
+          value={formData.dateLost}
+          onChange={handleChange}
+        />
           </div>
 
           <div className="input-group">
@@ -73,9 +138,12 @@ function ReportLost() {
             </label>
 
             <input
-              type="text"
-              placeholder="Where did you lose it?"
-            />
+            type="text"
+            name="locationLost"
+            value={formData.locationLost}
+            onChange={handleChange}
+            placeholder="Where did you lose it?"
+          />
           </div>
 
           <div className="input-group full-width">
@@ -85,8 +153,11 @@ function ReportLost() {
             </label>
 
             <textarea
-              rows="5"
-              placeholder="Provide additional details..."
+            row="5"
+            name="description"
+            value={formData.description}
+            onChange={handleChange}
+            placeholder="Provide additional details..."
             ></textarea>
           </div>
 
@@ -107,7 +178,7 @@ function ReportLost() {
             </div>
           </div>
 
-          <button className="submit-btn">
+          <button type="submit" className="submit-btn">
             Submit Report
           </button>
 
