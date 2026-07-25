@@ -9,6 +9,8 @@ require("dotenv").config();
 const connectDB = require("./config/db");
 const lostItemRoutes = require("./routes/lostItemRoutes");
 
+const foundItemRoutes = require("./routes/foundItemRoutes");
+
 const app = express();
 
 // Connect Database
@@ -17,6 +19,8 @@ connectDB();
 // Middleware
 app.use(cors());
 app.use(express.json());
+
+app.use("/api/found-items", foundItemRoutes);
 
 //Routes
 app.use("/api/lost-items", lostItemRoutes);
