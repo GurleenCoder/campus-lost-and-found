@@ -80,15 +80,6 @@ const [loading, setLoading] = useState(true);
 
         <div className="details-container">
 
-          <div className="details-image">
-
-            <img
-            src="https://placehold.co/600x400?text=No+Image"
-            alt={item.itemName}
-            />
-
-          </div>
-
           <div className="details-content">
 
             <span className="details-status">

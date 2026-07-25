@@ -7,7 +7,6 @@ import {
   CalendarDays,
   MapPin,
   FileText,
-  ImagePlus,
 } from "lucide-react";
 
 function ReportLost() {
@@ -17,7 +16,6 @@ function ReportLost() {
   dateLost: "",
   locationLost: "",
   description: "",
-  image: null,
 });
 
 const handleChange = (e) => {
@@ -52,7 +50,6 @@ const handleSubmit = async (e) => {
         dateLost: "",
         locationLost: "",
         description: "",
-        image: null,
       });
     } else {
       alert(data.message);
@@ -153,29 +150,12 @@ const handleSubmit = async (e) => {
             </label>
 
             <textarea
-            row="5"
+            rows="5"
             name="description"
             value={formData.description}
             onChange={handleChange}
             placeholder="Provide additional details..."
             ></textarea>
-          </div>
-
-          <div className="input-group full-width">
-            <label>
-              <ImagePlus size={18} />
-              Upload Item Image
-            </label>
-
-            <div className="upload-box">
-              <ImagePlus size={45} />
-
-              <p>Click to upload an image</p>
-
-              <span>PNG, JPG or JPEG</span>
-
-              <input type="file" />
-            </div>
           </div>
 
           <button type="submit" className="submit-btn">

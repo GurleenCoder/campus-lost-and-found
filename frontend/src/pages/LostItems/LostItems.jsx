@@ -100,10 +100,6 @@ function LostItems() {
             filteredItems.map((item) => (
 
               <div className="item-card" key={item._id}>
-                <img
-                  src="https://placehold.co/400x250?text=No+Image"
-                 alt={item.itemName}
-                />
 
                 <div className="item-content">
 

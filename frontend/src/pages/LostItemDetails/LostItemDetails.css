@@ -1,22 +1,16 @@
 .item-details-page{
     background:#f8fbf8;
     min-height:100vh;
-    padding:120px 80px 80px;
+    padding:100px 40px 80px;
 }
 
 .details-container{
-    max-width:1200px;
-    margin:auto;
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:60px;
-    align-items:center;
-}
-
-.details-image img{
-    width:100%;
-    border-radius:20px;
-    box-shadow:0 12px 30px rgba(0,0,0,.12);
+    max-width: 850px;
+    margin: auto;
+    background: white;
+    padding: 50px;
+    border-radius: 22px;
+    box-shadow: 0 12px 35px rgba(0,0,0,.07);
 }
 
 .details-status{
@@ -30,24 +24,27 @@
 }
 
 .details-content h1{
-    font-size:2.7rem;
+    font-size:2.4rem;
     color:#1B4332;
-    margin-bottom:30px;
+    margin-bottom:24px;
+    line-height:1.2;
 }
 
 .details-info{
     display:flex;
     flex-direction:column;
-    gap:16px;
-    margin-bottom:30px;
+    gap:18px;
+    margin-bottom:36px;
 }
 
 .details-info p{
     display:flex;
     align-items:center;
-    gap:10px;
+    gap:12px;
     color:#555;
-    font-size:1rem;
+    font-size:1.02rem;
+    padding-bottom:10px;
+    border-bottom:1px solid #edf3ed;
 }
 
 .details-info svg{
@@ -60,20 +57,23 @@
 }
 
 .description{
-    line-height:1.8;
+    line-height:1.9;
     color:#666;
-    margin-bottom:35px;
+    margin-bottom:42px;
+    max-width:850px;
 }
 
 .claim-box{
     display:flex;
-    gap:18px;
+    gap:20px;
     align-items:flex-start;
     background:white;
-    padding:22px;
-    border-radius:16px;
-    box-shadow:0 8px 20px rgba(0,0,0,.06);
-    margin-bottom:35px;
+    padding:28px;
+    border-radius:18px;
+    box-shadow:none;
+    background:#F8FBF8;
+    margin-bottom:42px;
+    border-left:5px solid #2E7D32;
 }
 
 .claim-box svg{
@@ -93,6 +93,7 @@
 
 .back-btn{
     display:inline-flex;
+    margin-top:10px;
     align-items:center;
     gap:10px;
     background:#2E7D32;
@@ -130,10 +131,6 @@
 
     .item-details-page{
         padding:110px 40px 60px;
-    }
-
-    .details-container{
-        grid-template-columns:1fr;
     }
 
     .details-content h1{
