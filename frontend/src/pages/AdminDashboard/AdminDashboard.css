@@ -284,6 +284,21 @@ tbody tr:hover{
     font-weight:600;
 }
 
+.delete-btn {
+  background: #dc2626;
+  color: white;
+  border: none;
+  padding: 7px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+.delete-btn:hover {
+  background: #b91c1c;
+}
+
 /* Responsive */
 
 @media(max-width:900px){

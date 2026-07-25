@@ -2,8 +2,61 @@ import "./AddFoundItem.css";
 
 import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 function AddFoundItem() {
+    const [formData, setFormData] = useState({
+  itemName: "",
+  category: "",
+  locationFound: "",
+  dateFound: "",
+  description: "",
+});
+
+const handleChange = (e) => {
+  const { name, value } = e.target;
+
+  setFormData({
+    ...formData,
+    [name]: value,
+  });
+};
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  try {
+    const response = await fetch(
+      "http://localhost:5000/api/found-items",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      }
+    );
+
+    const data = await response.json();
+
+    if (data.success) {
+      alert("Found item added successfully!");
+
+      setFormData({
+        itemName: "",
+        category: "",
+        locationFound: "",
+        dateFound: "",
+        description: "",
+      });
+    } else {
+      alert(data.message);
+    }
+  } catch (error) {
+    console.error(error);
+    alert("Something went wrong.");
+  }
+};
 
     return (
 
@@ -25,14 +78,22 @@ function AddFoundItem() {
                     Enter the details of the item received at the Campus Admin Office.
                 </p>
 
-                <form>
-
+                <form onSubmit={handleSubmit}>
                     <input
                         type="text"
+                        name="itemName"
                         placeholder="Item Name"
+                        value={formData.itemName}
+                        onChange={handleChange}
                     />
 
-                    <select>
+                
+
+                    <select
+                        name="category"
+                        value={formData.category}
+                        onChange={handleChange}
+                        >
 
                         <option>Category</option>
 
@@ -52,17 +113,26 @@ function AddFoundItem() {
 
                     <input
                         type="text"
+                        name="locationFound"
                         placeholder="Found Location"
+                        value={formData.locationFound}
+                        onChange={handleChange}
                     />
 
                     <input
-                        type="date"
+                    type="date"
+                    name="dateFound"
+                    value={formData.dateFound}
+                    onChange={handleChange}
                     />
 
                     <textarea
                         rows="5"
+                        name="description"
                         placeholder="Description"
-                    ></textarea>
+                        value={formData.description}
+                        onChange={handleChange}
+                        ></textarea>
 
                     <input
                         type="file"

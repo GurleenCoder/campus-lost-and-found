@@ -1,7 +1,7 @@
 import "./AdminDashboard.css";
 import { useNavigate } from "react-router-dom";
-import foundItems from "../../data/foundItems";
-import lostItems from "../../data/lostItems";
+import { useEffect, useState } from "react";
+
 
 import {
   Package,
@@ -13,9 +13,79 @@ import {
 
 function AdminDashboard() {
     const navigate = useNavigate();
+    const [lostItems, setLostItems] = useState([]);
+    const [foundItems, setFoundItems] = useState([]);
     const foundCount = foundItems.length;
     const lostCount = lostItems.length;
     const claimedCount = 0;
+
+    useEffect(() => {
+  const fetchLostItems = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost:5000/api/lost-items"
+      );
+
+      const data = await response.json();
+
+      if (data.success) {
+        setLostItems(data.data);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const fetchFoundItems = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost:5000/api/found-items"
+      );
+
+      const data = await response.json();
+
+      if (data.success) {
+        setFoundItems(data.data);
+      }
+
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  fetchFoundItems();
+  fetchLostItems();
+}, []);
+
+const handleDelete = async (id) => {
+  const confirmDelete = window.confirm(
+    "Are you sure you want to delete this report?"
+  );
+
+  if (!confirmDelete) return;
+
+  try {
+    const response = await fetch(
+      `http://localhost:5000/api/lost-items/${id}`,
+      {
+        method: "DELETE",
+      }
+    );
+
+    const data = await response.json();
+
+    if (data.success) {
+      setLostItems((prevItems) =>
+        prevItems.filter((item) => item._id !== id)
+      );
+    } else {
+      alert(data.message);
+    }
+  } catch (error) {
+    console.error(error);
+    alert("Something went wrong.");
+  }
+};
 
   return (
 
@@ -111,51 +181,55 @@ function AdminDashboard() {
 </div>
         <div className="recent-items">
 
-          <h2>Recent Activity</h2>
+          <h2>Recent Lost Reports</h2>
 
           <table>
 
             <thead>
 
               <tr>
-
-                <th>Item</th>
-
-                <th>Status</th>
-
-                <th>Location</th>
-
+              <th>Item</th>
+              <th>Category</th>
+              <th>Date</th>
+              <th>Location</th>
               </tr>
 
             </thead>
 
             <tbody>
 
-  {foundItems.slice(0, 5).map((item) => (
+  {lostItems
+  .slice()
+  .reverse()
+  .slice(0, 5)
+  .map((item) => (
+    <tr key={item._id}>
+      <td>{item.itemName}</td>
 
-    <tr key={item.id}>
-
-      <td>{item.name}</td>
+      <td>{item.category}</td>
 
       <td>
-
-        <span
-          className={
-            item.status === "Claimed"
-              ? "claimed"
-              : "available"
-          }
-        >
-          {item.status}
-        </span>
-
+        {new Date(item.dateLost).toLocaleDateString("en-GB", {
+          day: "numeric",
+          month: "short",
+          year: "numeric",
+        })}
       </td>
 
-      <td>{item.location}</td>
+      <td>{item.locationLost}</td>
+
+
+      <td>
+  <button
+    className="delete-btn"
+    onClick={() => handleDelete(item._id)}
+  >
+    Delete
+  </button>
+</td>
 
     </tr>
-
-  ))}
+))}
 
 </tbody>
 

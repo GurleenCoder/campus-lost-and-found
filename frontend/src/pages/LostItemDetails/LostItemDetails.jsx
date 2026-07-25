@@ -4,8 +4,7 @@ import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
 
 import { Link, useParams } from "react-router-dom";
-
-import lostItems from "../../data/lostItems";
+import { useEffect, useState } from "react";
 
 import {
   MapPin,
@@ -19,10 +18,42 @@ function LostItemDetails() {
 
   const { id } = useParams();
 
-  const item = lostItems.find(
-  (item) => item.id === Number(id)
-);
+  const [item, setItem] = useState(null);
+const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+  const fetchItem = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/api/lost-items/${id}`
+      );
+
+      const data = await response.json();
+
+      if (data.success) {
+        setItem(data.data);
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchItem();
+}, [id]);
+
+  if (loading) {
+  return (
+    <>
+      <Navbar />
+      <div className="item-not-found">
+        <h2>Loading...</h2>
+      </div>
+      <Footer />
+    </>
+  );
+}
   if (!item) {
     return (
       <>
@@ -52,8 +83,8 @@ function LostItemDetails() {
           <div className="details-image">
 
             <img
-              src={item.image}
-              alt={item.name}
+            src="https://placehold.co/600x400?text=No+Image"
+            alt={item.itemName}
             />
 
           </div>
@@ -61,23 +92,27 @@ function LostItemDetails() {
           <div className="details-content">
 
             <span className="details-status">
-              {item.status}
+              Searching
             </span>
 
-            <h1>{item.name}</h1>
+            <h1>{item.itemName}</h1>
 
             <div className="details-info">
 
               <p>
                 <MapPin size={18} />
                 <strong>Last Seen At:</strong>
-                {item.location}
+                {item.locationLost}
               </p>
 
               <p>
                 <CalendarDays size={18} />
                <strong>Date Lost:</strong>
-                {item.date}
+                {new Date(item.dateLost).toLocaleDateString("en-GB", {
+                day: "numeric",
+                month: "long",
+                year: "numeric",
+                })}
               </p>
 
               <p>

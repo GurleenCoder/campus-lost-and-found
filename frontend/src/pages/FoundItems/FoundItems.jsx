@@ -5,20 +5,39 @@ import Footer from "../../components/Footer/Footer";
 
 import { Search, MapPin, CalendarDays, ArrowRight } from "lucide-react";
 
-import foundItems from "../../data/foundItems";
-
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 function FoundItems() {
 
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("All");
+  const [foundItems, setFoundItems] = useState([]);
+
+  useEffect(() => {
+  const fetchFoundItems = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost:5000/api/found-items"
+      );
+
+      const data = await response.json();
+
+      if (data.success) {
+        setFoundItems(data.data);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  fetchFoundItems();
+}, []);
 
   const filteredItems = foundItems.filter((item) => {
 
     const matchesSearch =
-      item.name.toLowerCase().includes(search.toLowerCase());
+  item.itemName.toLowerCase().includes(search.toLowerCase());
 
     const matchesCategory =
       category === "All" || item.category === category;
@@ -81,22 +100,29 @@ function FoundItems() {
               <div className="item-card" key={item.id}>
 
                 <img
-                  src={item.image}
-                  alt={item.name}
+                 src={
+  item.image ||
+  "https://placehold.co/600x400?text=No+Image"
+}
+                  alt={item.itemName}
                 />
 
                 <div className="item-content">
 
-                  <h3>{item.name}</h3>
+                  <h3>{item.itemName}</h3>
 
                   <p>
                     <MapPin size={16} />
-                    {item.location}
+                    {item.locationFound}
                   </p>
 
                   <p>
                     <CalendarDays size={16} />
-                    {item.date}
+                    {new Date(item.dateFound).toLocaleDateString("en-GB", {
+  day: "numeric",
+  month: "short",
+  year: "numeric",
+})}
                   </p>
 
                   <span className="status">
@@ -104,7 +130,7 @@ function FoundItems() {
                   </span>
 
                   <Link
-                    to={`/found-items/${item.id}`}
+                    to={`/found-items/${item._id}`}
                     className="details-btn"
                   >
                     View Details

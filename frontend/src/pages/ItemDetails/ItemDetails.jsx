@@ -4,8 +4,7 @@ import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
 
 import { Link, useParams } from "react-router-dom";
-
-import foundItems from "../../data/foundItems";
+import { useEffect, useState } from "react";
 
 import {
   MapPin,
@@ -19,9 +18,27 @@ function ItemDetails() {
 
   const { id } = useParams();
 
-  const item = foundItems.find(
-    (item) => item.id === Number(id)
-  );
+  const [item, setItem] = useState(null);
+
+useEffect(() => {
+  const fetchItem = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/api/found-items/${id}`
+      );
+
+      const data = await response.json();
+
+      if (data.success) {
+        setItem(data.data);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  fetchItem();
+}, [id]);
 
   if (!item) {
     return (
@@ -52,8 +69,11 @@ function ItemDetails() {
           <div className="details-image">
 
             <img
-              src={item.image}
-              alt={item.name}
+              src={
+  item.image ||
+  "https://placehold.co/600x400?text=No+Image"
+}
+              alt={item.itemName}
             />
 
           </div>
@@ -64,20 +84,24 @@ function ItemDetails() {
               {item.status}
             </span>
 
-            <h1>{item.name}</h1>
+            <h1>{item.itemName}</h1>
 
             <div className="details-info">
 
               <p>
                 <MapPin size={18} />
                 <strong>Found At:</strong>
-                {item.location}
+                {item.locationFound}
               </p>
 
               <p>
                 <CalendarDays size={18} />
                 <strong>Date Found:</strong>
-                {item.date}
+                {new Date(item.dateFound).toLocaleDateString("en-GB", {
+                day: "numeric",
+                month: "short",
+                year: "numeric",
+                })}
               </p>
 
               <p>
@@ -103,10 +127,8 @@ function ItemDetails() {
                 <h4>Claim Instructions</h4>
 
                 <p>
-                  Visit the <strong>{item.officeLocation}</strong>
-                  {" "}with your College ID and be prepared
-                  to describe the item for verification
-                  before collecting it.
+                 Visit the <strong>Campus Admin Office</strong> with your College ID and be prepared to describe
+                 the item for verification before collecting it.
                 </p>
 
               </div>

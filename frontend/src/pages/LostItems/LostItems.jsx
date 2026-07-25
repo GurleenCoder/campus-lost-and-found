@@ -5,9 +5,8 @@ import Footer from "../../components/Footer/Footer";
 
 import { Search, MapPin, CalendarDays, ArrowRight } from "lucide-react";
 
-import lostItems from "../../data/lostItems";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 function LostItems() {
@@ -15,10 +14,32 @@ function LostItems() {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("All");
 
+  const [lostItems, setLostItems] = useState([]);
+
+  useEffect(() => {
+  const fetchLostItems = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost:5000/api/lost-items"
+      );
+
+      const data = await response.json();
+
+      if (data.success) {
+        setLostItems(data.data);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  fetchLostItems();
+}, []);
+
   const filteredItems = lostItems.filter((item) => {
 
     const matchesSearch =
-      item.name.toLowerCase().includes(search.toLowerCase());
+    item.itemName.toLowerCase().includes(search.toLowerCase());
 
     const matchesCategory =
       category === "All" || item.category === category;
@@ -78,25 +99,28 @@ function LostItems() {
 
             filteredItems.map((item) => (
 
-              <div className="item-card" key={item.id}>
-
+              <div className="item-card" key={item._id}>
                 <img
-                  src={item.image}
-                  alt={item.name}
+                  src="https://placehold.co/400x250?text=No+Image"
+                 alt={item.itemName}
                 />
 
                 <div className="item-content">
 
-                  <h3>{item.name}</h3>
+                  <h3>{item.itemName}</h3>
 
                   <p>
                     <MapPin size={16} />
-                    {item.location}
+                    {item.locationLost}
                   </p>
 
                   <p>
                     <CalendarDays size={16} />
-                    {item.date}
+                    {new Date(item.dateLost).toLocaleDateString("en-GB", {
+                    day: "numeric",
+                    month: "long",
+                    year: "numeric",
+                    })}
                   </p>
 
                   <span className="status">
@@ -104,7 +128,7 @@ function LostItems() {
                   </span>
 
                   <Link
-                    to={`/lost-items/${item.id}`}
+                   to={`/lost-items/${item._id}`}
                     className="details-btn"
                   >
                     View Details
