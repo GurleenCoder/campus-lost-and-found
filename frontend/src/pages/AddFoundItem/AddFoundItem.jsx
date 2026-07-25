@@ -1,8 +1,8 @@
-import "./AddFoundItem.css";
 
+import { useState } from "react";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import "./AddFoundItem.css";
 
 function AddFoundItem() {
     const [formData, setFormData] = useState({
@@ -13,33 +13,51 @@ function AddFoundItem() {
   description: "",
 });
 
+const [image, setImage] = useState(null);
+
 const handleChange = (e) => {
-  const { name, value } = e.target;
+  // const { name, value } = e.target;
 
   setFormData({
     ...formData,
-    [name]: value,
+    // [name]: value,
+    [e.target.name]: e.target.value,
   });
+};
+
+const handleImageChange = (e) => {
+  setImage(e.target.files[0]);
 };
 
 const handleSubmit = async (e) => {
   e.preventDefault();
 
+  const data = new FormData();
+
+  data.append("itemName", formData.itemName);
+  data.append("category", formData.category);
+  data.append("locationFound", formData.locationFound);
+  data.append("dateFound", formData.dateFound);
+  data.append("description", formData.description);
+
+  if (image) {
+    data.append("image", image);
+  }
+
   try {
+
     const response = await fetch(
       "http://localhost:5000/api/found-items",
       {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
+        body: data,
       }
     );
 
-    const data = await response.json();
+    const result = await response.json();
 
-    if (data.success) {
+    if (result.success) {
+
       alert("Found item added successfully!");
 
       setFormData({
@@ -49,12 +67,21 @@ const handleSubmit = async (e) => {
         dateFound: "",
         description: "",
       });
+
+      setImage(null);
+
     } else {
-      alert(data.message);
+
+      alert(result.message);
+
     }
+
   } catch (error) {
+
     console.error(error);
+
     alert("Something went wrong.");
+
   }
 };
 
@@ -95,7 +122,7 @@ const handleSubmit = async (e) => {
                         onChange={handleChange}
                         >
 
-                        <option>Category</option>
+                        <option value="">Select Category</option>
 
                         <option>Bag</option>
 
@@ -135,8 +162,9 @@ const handleSubmit = async (e) => {
                         ></textarea>
 
                     <input
-                        type="file"
-                    />
+  type="file"
+  onChange={handleImageChange}
+/>
 
                     <button
                         type="submit"

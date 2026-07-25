@@ -1,46 +1,121 @@
 import "./ClaimedItems.css";
 
-import Navbar from "../../components/Navbar/Navbar";
-import Footer from "../../components/Footer/Footer";
-
-import { CheckCircle2 } from "lucide-react";
+import { useEffect, useState } from "react";
+import { ArrowLeft } from "lucide-react";
+import { Link } from "react-router-dom";
 
 function ClaimedItems() {
 
-    return (
+  const [claimedItems, setClaimedItems] = useState([]);
 
-        <>
-            <Navbar />
+  useEffect(() => {
 
-            <section className="claimed-page">
+    const fetchClaimedItems = async () => {
 
-                <div className="claimed-card">
+      try {
 
-                    <CheckCircle2
-                        size={70}
-                        className="claimed-icon"
-                    />
+        const response = await fetch(
+          "http://localhost:5000/api/found-items"
+        );
 
-                    <h1>Claimed Items</h1>
+        const data = await response.json();
 
-                    <p>
-                        No items have been marked as claimed yet.
-                    </p>
+        if (data.success) {
 
-                    <span>
-                        Once an item is successfully returned to its owner,
-                        it will appear here.
-                    </span>
+          const claimed = data.data.filter(
+            (item) => item.status === "Claimed"
+          );
 
-                </div>
+          setClaimedItems(claimed);
 
-            </section>
+        }
 
-            <Footer />
+      } catch (error) {
+        console.error(error);
+      }
 
-        </>
+    };
 
-    );
+    fetchClaimedItems();
+
+  }, []);
+
+  return (
+
+    <div className="claimed-page">
+
+      <div className="claimed-card">
+
+        <Link
+          to="/admin-dashboard"
+          className="back-link"
+        >
+          <ArrowLeft size={18}/>
+          Back to Dashboard
+        </Link>
+
+        <h1>Claimed Items</h1>
+
+        <p>
+          These items have already been returned to their rightful owners.
+        </p>
+
+        <table>
+
+          <thead>
+
+            <tr>
+
+              <th>Item</th>
+
+              <th>Category</th>
+
+              <th>Date Found</th>
+
+              <th>Location</th>
+
+            </tr>
+
+          </thead>
+
+          <tbody>
+
+            {claimedItems.map((item) => (
+
+              <tr key={item._id}>
+
+                <td>{item.itemName}</td>
+
+                <td>{item.category}</td>
+
+                <td>
+
+                  {new Date(item.dateFound).toLocaleDateString(
+                    "en-GB",
+                    {
+                      day: "numeric",
+                      month: "short",
+                      year: "numeric",
+                    }
+                  )}
+
+                </td>
+
+                <td>{item.locationFound}</td>
+
+              </tr>
+
+            ))}
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+
+  );
 
 }
 

@@ -10,6 +10,7 @@ import AdminDashboard from "./pages/AdminDashboard/AdminDashboard";
 import AddFoundItem from "./pages/AddFoundItem/AddFoundItem";
 import ClaimedItems from "./pages/ClaimedItems/ClaimedItems";
 import About from "./pages/About/About";
+import ManageFoundItems from "./pages/ManageFoundItems/ManageFoundItems";
 
 function App() {
   return (
@@ -24,8 +25,11 @@ function App() {
         <Route path="/admin-login" element={<AdminLogin />} />
         <Route path="/admin-dashboard" element={<AdminDashboard />}/>
         <Route path="/admin/add-found-item" element={<AddFoundItem />}/>
-        <Route path="/claimed-items" element={<ClaimedItems />}/>
+       <Route path="/claimed-items" element={<ClaimedItems />}
+/>
         <Route path="/about" element={<About />} />
+        <Route path="/admin/manage-found-items" element={<ManageFoundItems />}
+/>
       </Routes>
     </BrowserRouter>
   );

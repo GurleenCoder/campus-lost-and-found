@@ -87,6 +87,41 @@ const handleDelete = async (id) => {
   }
 };
 
+const handleClaim = async (id) => {
+  const confirmClaim = window.confirm(
+    "Mark this item as claimed?"
+  );
+
+  if (!confirmClaim) return;
+
+  try {
+    const response = await fetch(
+      `http://localhost:5000/api/found-items/${id}/claim`,
+      {
+        method: "PATCH",
+      }
+    );
+
+    const data = await response.json();
+
+    if (data.success) {
+      setFoundItems((prevItems) =>
+        prevItems.map((item) =>
+          item._id === id
+            ? { ...item, status: "Claimed" }
+            : item
+        )
+      );
+    } else {
+      alert(data.message);
+    }
+
+  } catch (error) {
+    console.error(error);
+    alert("Something went wrong.");
+  }
+};
+
   return (
 
     <div className="dashboard">
@@ -97,7 +132,7 @@ const handleDelete = async (id) => {
 
         <ul>
 
-          <li onClick={() => navigate("/found-items")}>
+          <li onClick={() => navigate("/admin/manage-found-items")}>
             <Package size={18}/>
             Manage Found Items
         </li>
@@ -192,6 +227,7 @@ const handleDelete = async (id) => {
               <th>Category</th>
               <th>Date</th>
               <th>Location</th>
+              <th>Action</th>
               </tr>
 
             </thead>

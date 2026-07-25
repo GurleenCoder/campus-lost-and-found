@@ -1,10 +1,10 @@
-.claimed-page {
+.manage-found-page {
   min-height: 100vh;
   background: #f5f7fb;
   padding: 40px;
 }
 
-.claimed-card {
+.manage-found-card {
   max-width: 1200px;
   margin: auto;
   background: white;

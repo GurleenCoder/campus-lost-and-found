@@ -69,12 +69,13 @@ useEffect(() => {
           <div className="details-image">
 
             <img
-              src={
-  item.image ||
-  "https://placehold.co/600x400?text=No+Image"
-}
-              alt={item.itemName}
-            />
+  src={
+    item.image
+      ? `http://localhost:5000${item.image}`
+      : "https://placehold.co/600x400?text=No+Image"
+  }
+  alt={item.itemName}
+/>
 
           </div>
 
