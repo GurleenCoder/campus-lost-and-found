@@ -6,7 +6,12 @@ const FoundItem = require("../models/FoundItem");
 
 const createFoundItem = async (req, res) => {
   try {
-    const foundItem = await FoundItem.create(req.body);
+   const itemData = {
+  ...req.body,
+  image: req.file ? `/uploads/${req.file.filename}` : "",
+};
+
+const foundItem = await FoundItem.create(itemData);
 
     res.status(201).json({
       success: true,
@@ -68,8 +73,42 @@ const getFoundItemById = async (req, res) => {
   }
 };
 
+// @desc    Mark found item as claimed
+// @route   PATCH /api/found-items/:id/claim
+// @access  Admin
+
+const markItemAsClaimed = async (req, res) => {
+  try {
+    const foundItem = await FoundItem.findById(req.params.id);
+
+    if (!foundItem) {
+      return res.status(404).json({
+        success: false,
+        message: "Found item not found.",
+      });
+    }
+
+    foundItem.status = "Claimed";
+
+    await foundItem.save();
+
+    res.status(200).json({
+      success: true,
+      message: "Item marked as claimed.",
+      data: foundItem,
+    });
+
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
 module.exports = {
   createFoundItem,
   getFoundItems,
   getFoundItemById,
+  markItemAsClaimed,
 };

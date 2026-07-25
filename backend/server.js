@@ -1,5 +1,7 @@
 const dns = require("dns");
 
+const path = require("path");
+
 dns.setServers(["1.1.1.1", "8.8.8.8"]);
 
 const express = require("express");
@@ -13,12 +15,19 @@ const foundItemRoutes = require("./routes/foundItemRoutes");
 
 const app = express();
 
+const adminRoutes = require("./routes/adminRoutes");
+
 // Connect Database
 connectDB();
 
 // Middleware
 app.use(cors());
 app.use(express.json());
+
+app.use(
+  "/uploads",
+  express.static(path.join(__dirname, "uploads"))
+);
 
 app.use("/api/found-items", foundItemRoutes);
 
@@ -29,6 +38,8 @@ app.use("/api/lost-items", lostItemRoutes);
 app.get("/", (req, res) => {
   res.send("Campus Lost & Found Backend Running 🚀");
 });
+
+app.use("/api/admin", adminRoutes);
 
 // Start Server
 const PORT = process.env.PORT || 5000;
