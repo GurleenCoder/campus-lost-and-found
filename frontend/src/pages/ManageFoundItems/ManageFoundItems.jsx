@@ -6,6 +6,16 @@ import { Link } from "react-router-dom";
 
 function ManageFoundItems() {
 
+  const [showClaimModal, setShowClaimModal] = useState(false);
+
+const [selectedItemId, setSelectedItemId] = useState(null);
+
+const [claimForm, setClaimForm] = useState({
+  name: "",
+  rollNo: "",
+  branch: "",
+});
+
   const [foundItems, setFoundItems] = useState([]);
 
   useEffect(() => {
@@ -35,51 +45,53 @@ function ManageFoundItems() {
   }, []);
 
   const handleClaim = async (id) => {
-
-  const confirmClaim = window.confirm(
-    "Mark this item as claimed?"
-  );
-
-  if (!confirmClaim) return;
-
   try {
-
     const response = await fetch(
       `http://localhost:5000/api/found-items/${id}/claim`,
       {
         method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(claimForm),
       }
     );
 
     const data = await response.json();
 
     if (data.success) {
-
       setFoundItems((prevItems) =>
         prevItems.map((item) =>
           item._id === id
-            ? { ...item, status: "Claimed" }
+            ? {
+                ...item,
+                status: "Claimed",
+                claimedBy: data.data.claimedBy,
+              }
             : item
         )
       );
 
+      setShowClaimModal(false);
+
+      setClaimForm({
+        name: "",
+        rollNo: "",
+        branch: "",
+      });
+
+      setSelectedItemId(null);
     } else {
-
       alert(data.message);
-
     }
-
   } catch (error) {
-
     console.error(error);
-
     alert("Something went wrong.");
-
   }
-
 };
 
   return (
+    <>
 
     <div className="manage-found-page">
 
@@ -163,11 +175,14 @@ function ManageFoundItems() {
   {item.status === "Available" ? (
 
     <button
-      className="claim-btn"
-      onClick={() => handleClaim(item._id)}
-    >
-      Mark as Claimed
-    </button>
+  className="claim-btn"
+  onClick={() => {
+    setSelectedItemId(item._id);
+    setShowClaimModal(true);
+  }}
+>
+  Mark as Claimed
+</button>
 
   ) : (
 
@@ -192,8 +207,91 @@ function ManageFoundItems() {
 
     </div>
 
+    {showClaimModal && (
+  <div className="claim-modal-overlay">
+
+    <div className="claim-modal">
+
+      <h2>Claim Item</h2>
+
+      <p>
+        Enter the claimant's details before marking this item as claimed.
+      </p>
+
+      <input
+        type="text"
+        placeholder="Student Name"
+        value={claimForm.name}
+        onChange={(e) =>
+          setClaimForm({
+            ...claimForm,
+            name: e.target.value,
+          })
+        }
+      />
+
+      <input
+        type="text"
+        placeholder="Roll Number"
+        value={claimForm.rollNo}
+        onChange={(e) =>
+          setClaimForm({
+            ...claimForm,
+            rollNo: e.target.value,
+          })
+        }
+      />
+
+      <input
+        type="text"
+        placeholder="Branch"
+        value={claimForm.branch}
+        onChange={(e) =>
+          setClaimForm({
+            ...claimForm,
+            branch: e.target.value,
+          })
+        }
+      />
+
+      <div className="claim-modal-buttons">
+
+        <button
+          className="cancel-btn"
+          onClick={() => {
+            setShowClaimModal(false);
+
+            setClaimForm({
+              name: "",
+              rollNo: "",
+              branch: "",
+            });
+          }}
+        >
+          Cancel
+        </button>
+
+        <button
+          className="confirm-btn"
+          onClick={() =>
+            handleClaim(selectedItemId)
+          }
+        >
+          Confirm Claim
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+)}
+
+</>
+
   );
 
+  
 }
 
 export default ManageFoundItems;
