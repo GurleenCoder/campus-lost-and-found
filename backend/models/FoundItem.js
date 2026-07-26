@@ -37,6 +37,26 @@ const foundItemSchema = new mongoose.Schema(
       type: String,
       default: "Available",
     },
+
+    claimedBy: {
+  name: {
+    type: String,
+    default: "",
+  },
+  rollNo: {
+    type: String,
+    default: "",
+  },
+  branch: {
+    type: String,
+    default: "",
+  },
+  claimedDate: {
+    type: Date,
+    default: null,
+  },
+},
+
   },
   {
     timestamps: true,

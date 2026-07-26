@@ -88,9 +88,25 @@ const markItemAsClaimed = async (req, res) => {
       });
     }
 
-    foundItem.status = "Claimed";
+    const { name, rollNo, branch } = req.body;
 
-    await foundItem.save();
+    if (!name || !rollNo || !branch) {
+  return res.status(400).json({
+    success: false,
+    message: "Please provide claimant details.",
+  });
+}
+
+foundItem.status = "Claimed";
+
+foundItem.claimedBy = {
+  name,
+  rollNo,
+  branch,
+  claimedDate: new Date(),
+};
+
+await foundItem.save();
 
     res.status(200).json({
       success: true,
