@@ -1,3 +1,5 @@
+const { verifyAdmin } = require("../middleware/adminAuth");
+
 const express = require("express");
 
 const router = express.Router();
@@ -17,6 +19,6 @@ router.get("/:id", getLostItemById);
 // POST a new lost item
 router.post("/", createLostItem);
 
-router.delete("/:id", deleteLostItem);
+router.delete("/:id", verifyAdmin, deleteLostItem);
 
 module.exports = router;
