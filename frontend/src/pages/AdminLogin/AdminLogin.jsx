@@ -33,10 +33,11 @@ const handleLogin = async (e) => {
     console.log(data);
 
     if (data.success) {
-      localStorage.setItem("adminLoggedIn", "true");
+  localStorage.setItem("adminLoggedIn", "true");
+  localStorage.setItem("adminToken", data.token);
 
-      navigate("/admin-dashboard");
-    } else {
+  navigate("/admin-dashboard");
+} else {
       alert(data.message);
     }
   } catch (error) {

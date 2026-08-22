@@ -66,11 +66,14 @@ const handleDelete = async (id) => {
 
   try {
     const response = await fetch(
-      `http://localhost:5000/api/lost-items/${id}`,
-      {
-        method: "DELETE",
-      }
-    );
+  `http://localhost:5000/api/lost-items/${id}`,
+  {
+    method: "DELETE",
+    headers: {
+      Authorization: localStorage.getItem("adminToken"),
+    },
+  }
+);
 
     const data = await response.json();
 
@@ -147,10 +150,15 @@ const handleClaim = async (id) => {
             Claimed Items
          </li>
 
-          <li onClick={() => navigate("/")}>
-            <LogOut size={18}/>
-            Logout
-          </li>
+         <li
+  onClick={() => {
+    localStorage.removeItem("adminLoggedIn");
+    navigate("/admin-login");
+  }}
+>
+  <LogOut size={18}/>
+  Logout
+</li>
 
         </ul>
 

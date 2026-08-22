@@ -47,12 +47,15 @@ const handleSubmit = async (e) => {
   try {
 
     const response = await fetch(
-      "http://localhost:5000/api/found-items",
-      {
-        method: "POST",
-        body: data,
-      }
-    );
+  "http://localhost:5000/api/found-items",
+  {
+    method: "POST",
+    headers: {
+      Authorization: localStorage.getItem("adminToken"),
+    },
+    body: data,
+  }
+);
 
     const result = await response.json();
 

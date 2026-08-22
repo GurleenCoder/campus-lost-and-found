@@ -121,3 +121,5 @@ function ClaimedItems() {
   );
 }
 
+export default ClaimedItems;
+

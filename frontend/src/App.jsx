@@ -11,6 +11,7 @@ import AddFoundItem from "./pages/AddFoundItem/AddFoundItem";
 import ClaimedItems from "./pages/ClaimedItems/ClaimedItems";
 import About from "./pages/About/About";
 import ManageFoundItems from "./pages/ManageFoundItems/ManageFoundItems";
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
 function App() {
   return (
@@ -23,12 +24,12 @@ function App() {
         <Route path="/lost-items" element={<LostItems />} />
         <Route path="/lost-items/:id" element={<LostItemDetails />}/>
         <Route path="/admin-login" element={<AdminLogin />} />
-        <Route path="/admin-dashboard" element={<AdminDashboard />}/>
-        <Route path="/admin/add-found-item" element={<AddFoundItem />}/>
-       <Route path="/claimed-items" element={<ClaimedItems />}
+        <Route path="/admin-dashboard" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>}/>
+        <Route path="/admin/add-found-item" element={<ProtectedRoute><AddFoundItem /></ProtectedRoute>}/>
+       <Route path="/claimed-items" element={<ProtectedRoute><ClaimedItems /></ProtectedRoute>}
 />
         <Route path="/about" element={<About />} />
-        <Route path="/admin/manage-found-items" element={<ManageFoundItems />}
+        <Route path="/admin/manage-found-items" element={<ProtectedRoute><ManageFoundItems /></ProtectedRoute>}
 />
       </Routes>
     </BrowserRouter>

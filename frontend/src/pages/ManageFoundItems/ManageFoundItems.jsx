@@ -50,9 +50,10 @@ const [claimForm, setClaimForm] = useState({
       `http://localhost:5000/api/found-items/${id}/claim`,
       {
         method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
+       headers: {
+  "Content-Type": "application/json",
+  Authorization: localStorage.getItem("adminToken"),
+},
         body: JSON.stringify(claimForm),
       }
     );
