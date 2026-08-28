@@ -23,7 +23,7 @@ function AdminDashboard() {
   const fetchLostItems = async () => {
     try {
       const response = await fetch(
-        "http://localhost:5000/api/lost-items"
+        "https://campus-lost-and-found-backend-mo3s.onrender.com/api/lost-items"
       );
 
       const data = await response.json();
@@ -39,7 +39,7 @@ function AdminDashboard() {
   const fetchFoundItems = async () => {
     try {
       const response = await fetch(
-        "http://localhost:5000/api/found-items"
+        "https://campus-lost-and-found-backend-mo3s.onrender.com/api/found-items"
       );
 
       const data = await response.json();
@@ -66,7 +66,7 @@ const handleDelete = async (id) => {
 
   try {
     const response = await fetch(
-  `http://localhost:5000/api/lost-items/${id}`,
+  `https://campus-lost-and-found-backend-mo3s.onrender.com/api/lost-items/${id}`,
   {
     method: "DELETE",
     headers: {
@@ -99,7 +99,7 @@ const handleClaim = async (id) => {
 
   try {
     const response = await fetch(
-      `http://localhost:5000/api/found-items/${id}/claim`,
+      `https://campus-lost-and-found-backend-mo3s.onrender.com/api/found-items/${id}/claim`,
       {
         method: "PATCH",
       }

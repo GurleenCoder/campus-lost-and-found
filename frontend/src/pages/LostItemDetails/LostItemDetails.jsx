@@ -25,7 +25,7 @@ const [loading, setLoading] = useState(true);
   const fetchItem = async () => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/lost-items/${id}`
+        `https://campus-lost-and-found-backend-mo3s.onrender.com/api/lost-items/${id}`
       );
 
       const data = await response.json();

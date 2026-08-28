@@ -20,7 +20,7 @@ function LostItems() {
   const fetchLostItems = async () => {
     try {
       const response = await fetch(
-        "http://localhost:5000/api/lost-items"
+       "https://campus-lost-and-found-backend-mo3s.onrender.com/api/lost-items"
       );
 
       const data = await response.json();
