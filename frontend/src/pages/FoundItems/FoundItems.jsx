@@ -102,10 +102,12 @@ function FoundItems() {
                 
 <img
   src={
-    item.image
-      ? `https://campus-lost-and-found-backend-mo3s.onrender.com${item.image}`
-      : "https://placehold.co/600x400?text=No+Image"
-  }
+  item.image
+    ? item.image.startsWith("http")
+      ? item.image
+      : `https://campus-lost-and-found-backend-mo3s.onrender.com${item.image}`
+    : "https://placehold.co/600x400?text=No+Image"
+}
   alt={item.itemName}
   onError={(e) => {
     e.currentTarget.onerror = null;

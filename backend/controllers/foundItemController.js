@@ -6,10 +6,12 @@ const FoundItem = require("../models/FoundItem");
 
 const createFoundItem = async (req, res) => {
   try {
-   const itemData = {
+   
+const itemData = {
   ...req.body,
-  image: req.file ? `/uploads/${req.file.filename}` : "",
+  image: req.file ? req.file.path : "",
 };
+
 
 const foundItem = await FoundItem.create(itemData);
 
